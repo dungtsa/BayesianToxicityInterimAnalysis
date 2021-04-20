@@ -1,0 +1,109 @@
+
+
+```{r library, echo=FALSE,comment="",warning=FALSE,message=FALSE}
+library(knitr)
+library(rmarkdown)
+library(shiny)
+library(kableExtra)
+library(extraDistr)
+options(scipen = 3)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 60)
+opts_chunk$set(comment = "", warning = FALSE, message = FALSE, echo = TRUE, tidy = FALSE, size = "small", fig.height=5)
+```
+
+```{r output type, echo = FALSE, cache = FALSE}
+
+# output_type <- switch(opts_knit$get("rmarkdown.pandoc.to"),
+# 
+#                       docx = 'pandoc',
+# 
+#                       latex = 'latex',
+# 
+#                       html = 'html'
+# 
+# )
+
+```
+
+```{r, echo=FALSE}
+ tmp99 <- get.result.toxicity() 
+```
+
+
+## Toxicity Report
+ 
+
+```{r 1, echo=FALSE}
+tox.tmp <- paste(round(input$tox*100, 2),'%', sep = '')
+if (input$format == "PDF") {
+  cat("Statistics Plan : The study will enroll a total number of ",input$rep ," patients. We will evaulate \n toxicity at every ",input$block_n," patient(s). We consider ",tox.tmp," as the maximum allowable toxicity rate. \n Using Bayesian posterior probability with a beta prior, beta (",input$betaA,", ",input$betaB,"), if the \n posterior probability of toxicity rate < ",tox.tmp," is less than ",input$p_cutoff,", we will conclude \n the treatment is too toxic and should be terminated. \n \n For example (Table 1), if ", tmp99$pats_n2," patients or more have unacceptable toxicity in ", tmp99$pats_n1," patients \n (about 50%) enrolled and evaluated, we consider the treatment is too toxic and the study \n will be halted. Sensitivity analysis (Table 2) shows that if the true toxic rate is ",tox.tmp,", \n the chance of early stopping the trial is ", tmp99$value,"% based on ", input$simN, " times simulation with \n the posterior probability cutoff value at ",input$p_cutoff,". Evaluation of different cutoffs of \n the posterior probability for toxicity rate is given in the Figure 1 for the \n sensitivity analysis and in Table 3 for the stopping boundary analysis.", sep = "")
+  
+} else {    
+cat("Statistics Plan : The study will enroll a total number of ",input$rep ," patients. We will evaulate toxicity at every ",input$block_n," patient(s). We consider ",tox.tmp," as the maximum allowable toxicity rate. Using Bayesian posterior probability with a beta prior, beta ( ", input$betaA,", ",input$betaB," ), if the posterior probability of toxicity rate< ",tox.tmp," is less than ",input$p_cutoff,", we will conclude the treatment is too toxic and should be terminated. For example (Table 1), if ", tmp99$pats_n2," patients or more have unacceptable toxicity in ", tmp99$pats_n1," patients (about 50%) enrolled and evaluated, we consider the treatment is too toxic and the study will be halted. Sensitivity analysis (Table 2) shows that if the true toxic rate is ",tox.tmp,", the chance of early stopping the trial is ", tmp99$value,"% based on ", input$simN, " times simulation with the posterior probability cutoff value at ",input$p_cutoff,". Evaluation of different cutoffs of the posterior probability for toxicity rate is given in the Figure 1 for the sensitivity analysis and in Table 3 for the stopping boundary analysis.", sep = "")
+}
+
+ 
+```
+
+```{r table1, echo=FALSE}
+ 
+
+
+
+if (input$format == "PDF") {
+kableExtra::kable(tmp99$table1, 'latex', longtable = T, caption =cat("Table 1. The stopping boundary for cutoff at", input$p_cutoff, sep = " ")  ) %>%
+ kable_styling(font_size = 8)} else {
+   
+kableExtra::kable(tmp99$table1, 'pandoc', longtable = T, caption =cat("Table 1. The stopping boundary for cutoff at", input$p_cutoff, sep = " ")  ) }
+
+
+```
+ 
+ <br>
+ 
+ <br>
+
+```{r table2, echo=FALSE}
+
+if (input$format == "PDF") {
+kableExtra::kable(tmp99$table2, 'latex', longtable = T, caption =cat("Table 2. The posterior probability of stopping the trial for cutoff at", input$p_cutoff, sep = " ")  )  %>%
+ kable_styling(font_size = 8)} else {
+   
+ kableExtra::kable(tmp99$table2, 'pandoc', longtable = T, caption =cat("Table 2. The posterior probability of stopping the trial for cutoff at", input$p_cutoff, sep = " ")  ) }
+```
+
+<br>
+
+<br>
+
+\clearpage
+
+```{r figure1, echo=FALSE}
+
+
+if (input$format == "PDF") {
+  cat("Figure 1. Sensitivity analysis at the different listed cutoffs of the posterior \n probability for toxicity rate", sep = " ") } else {
+   
+  cat("Figure 1. Sensitivity analysis at the different listed cutoffs of the posterior probability for toxicity rate", sep = " ")  }
+
+    tmp99$plot
+```
+
+
+\clearpage
+
+
+```{r table3, echo=FALSE}
+  
+   if (input$format == "PDF") {
+    kableExtra::kable(tmp99$df, 'pandoc', longtable = T, caption =cat("Table 3. The stopping boundary at the different listed cutoffs of the posterior \n probability for toxicity rate", sep = " ") )   
+ } else {
+   
+    kableExtra::kable(tmp99$df, 'pandoc', longtable = T, caption =cat("Table 3. The stopping boundary at the different listed cutoffs of the posterior probability for toxicity rate", sep = " ") )   }
+
+    
+```
