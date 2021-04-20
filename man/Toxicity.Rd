@@ -2,9 +2,10 @@
 % Please edit documentation in R/Toxicity.R
 \name{Toxicity}
 \alias{Toxicity}
+\alias{ToxicityShinyApp}
 \title{Toxicity Interim Analysis by Bayesian Posterior Probability}
 \usage{
-Toxicity()
+ToxicityShinyApp()
 }
 \description{
 This function will start a "Toxicity Interim Analysis by Bayesian Posterior Probability" Shiny application

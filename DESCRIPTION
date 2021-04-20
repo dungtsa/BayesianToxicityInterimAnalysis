@@ -1,4 +1,4 @@
-Package: ToxicityAnalysis
+Package: BayesianToxicityInterimAnalysis 
 Type: Package
 Title: Toxicity Interim Analysis by Bayesian Posterior Probability 
 Version: 0.1.0

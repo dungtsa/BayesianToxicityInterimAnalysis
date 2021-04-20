@@ -6,7 +6,7 @@
 
 #' @export
 
-Toxicity <- function() {
+ToxicityShinyApp <- function() {
 
   appDir <- system.file("shiny-examples", "myapp", package = "ToxicityAnalysis")
 
