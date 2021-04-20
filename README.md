@@ -19,11 +19,11 @@ devtools::install_github("dungtsa/BayesianToxicityInterimAnalysis",force = TRUE)
 ## Getting Started
 
 ```r
-require("BayesianPickWinner")
-bayes.pick.winner()
+require("BayesianToxicityInterimAnalysis")
+ToxicityShinyApp()
 ```
 -------------------------------
 Snapshot of shiny app: initial 
-![snapshot of shiny app: initial](inst/img/shiny1.png)
+![snapshot of shiny app: initial](inst/img/ToxicityUIscreenshot.png)
 
  
