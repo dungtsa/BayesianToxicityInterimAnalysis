@@ -1,4 +1,4 @@
-#' @name Toxicity
+#' @name ToxicityShinyApp
 
 #' @title Toxicity Interim Analysis by Bayesian Posterior Probability
 
