@@ -6,18 +6,13 @@
 
 #' @export
 
-ToxicityShinyApp <- function() {
-
-  appDir <- system.file("shiny-examples", "myapp", package = "ToxicityAnalysis")
-
+ToxicityShinyApp<-function () 
+{
+  appDir <- system.file("shiny-examples", "myapp", package = "BayesianToxicityInterimAnalysis")
   if (appDir == "") {
-
-    stop("Could not find example directory. Try re-installing `ToxicityAnalysis`.", call. = FALSE)
-
+    stop("Could not find example directory. Try re-installing `BayesianToxicityInterimAnalysis`.", 
+         call. = FALSE)
   }
-
-
-
-  shiny::runApp(paste(appDir,'/app.R',sep=''), launch.browser =T,host = getOption( "127.0.0.1"))
-
+  shiny::runApp(paste(appDir, "/app.R", sep = ""), launch.browser = T, 
+                host = getOption("127.0.0.1"))
 }
